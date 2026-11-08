@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: cineai-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: ai_movie_rec
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    container_name: cineai-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      NODE_ENV: production
+      MONGODB_URI: mongodb://mongodb:27017/ai_movie_rec
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-cinerec_super_secret_access_jwt_key_987654321_production}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-cinerec_super_secret_refresh_jwt_key_123456789_production}
+      TMDB_API_KEY: ${TMDB_API_KEY}
+      FRONTEND_URL: http://localhost:80
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    container_name: cineai-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:

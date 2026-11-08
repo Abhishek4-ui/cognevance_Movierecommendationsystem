@@ -1,0 +1,20 @@
+{
+  "name": "ai-movie-recommendation-system",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Complete AI/ML Movie Recommendation System with React.js, Node.js, Express, MongoDB, and TensorFlow.js",
+  "scripts": {
+    "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "install:all": "npm install --prefix backend && npm install --prefix ai-engine && npm install --prefix frontend",
+    "start:backend": "npm start --prefix backend",
+    "start:frontend": "npm run dev --prefix frontend",
+    "test:backend": "npm test --prefix backend",
+    "test:ai": "cd ai-engine && node evaluation/benchmark.js",
+    "test:frontend": "npm test --prefix frontend",
+    "test:all": "npm run test:ai && npm run test:backend && npm run test:frontend",
+    "build:frontend": "npm run build --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.7"
+  }
+}

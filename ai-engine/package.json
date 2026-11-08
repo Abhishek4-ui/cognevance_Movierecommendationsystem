@@ -1,0 +1,17 @@
+{
+  "name": "ai-movie-recommendation-engine",
+  "version": "1.0.0",
+  "description": "Production JavaScript AI/ML Recommendation Engine using TensorFlow.js, TF-IDF, Cosine Similarity & Collaborative Filtering",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "benchmark": "node evaluation/benchmark.js"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.22.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
